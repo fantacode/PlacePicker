@@ -23,7 +23,7 @@ namespace DemoApp.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
-            var googleApiKey = "AIzaSyAyljHAU7W6L-ZcpvL4eEulpUXJQxq1DKU";
+            var googleApiKey = "YOUR-API-KEY-HERE";
             Xamarin.FormsGoogleMaps.Init(googleApiKey);
             LoadApplication(new App());
 
