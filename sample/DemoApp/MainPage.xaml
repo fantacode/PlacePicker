@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:DemoApp" x:Class="DemoApp.MainPage">
+      <StackLayout VerticalOptions="CenterAndExpand">
+        <!-- Place new controls here -->
+        <Label Text="Welcome to Xamarin.Forms!" HorizontalOptions="Center" />
+        <Button Text="Get Location" TextColor="White" BackgroundColor="Blue" Clicked="Handle_Clicked"/>
+        <Label x:Name="status" TextColor="Black" FontSize="14" HorizontalOptions="CenterAndExpand"/>
+        <Label x:Name="location" TextColor="Black" FontSize="16" HorizontalOptions="CenterAndExpand"/>
+    </StackLayout>
+</ContentPage>
