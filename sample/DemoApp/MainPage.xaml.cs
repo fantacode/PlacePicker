@@ -31,13 +31,14 @@ namespace DemoApp
         {
             LocationPicker.PinImage = "pin.png";
             var place = await LocationPicker.SelectPlace();
-            if (place.Data != null)
+            if (place?.Data != null)
             {
                 SelectedPlace = place.Data;
                 location.Text = place.Data.LocationAddress;
             }
             else
             {
+                if(place != null)
                 await DisplayAlert("Oops", place.Status.ToString(), "OK");
             }
         }

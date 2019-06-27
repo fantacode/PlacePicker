@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Threading.Tasks;
 using PlacePicker.Helpers;
 using PlacePicker.Models;
@@ -90,9 +91,17 @@ namespace PlacePicker
                 Place.LocationAddress = address.GetLocationString(x.Data);
                 location.Text = address.GetLocationString(x.Data);
             }
+            else
+            {
+                Place.Location = loc;
+                Place.Placemark = null;
+                Place.LocationAddress = "Unnamed";
+                location.Text = "Unnamed";
+            }
 
             if (DefaultPosition)
             {
+                LocationMap.MoveToRegion(MapSpan.FromCenterAndRadius(position, Distance.FromMiles(0.1)));
                 await LocationMap.AnimateCamera(CameraUpdateFactory.NewCameraPosition(
                 new CameraPosition(position, 15d)), TimeSpan.FromSeconds(0.5));
             }
@@ -114,10 +123,15 @@ namespace PlacePicker
                 var loc = await placePicker.GetCurrentLocation();
                 if (loc.Data != null)
                 {
-                    await currentNav.PushModalAsync(placePicker);
-                    var selectedPlace = await placePicker.GetPlace();
-                    result.Data = selectedPlace;
-                    result.Status = Status.Success;
+                    if (currentNav.ModalStack.Where(x => x is LocationPicker).Count() == 0)
+                    {
+                        await currentNav.PushModalAsync(placePicker);
+                        var selectedPlace = await placePicker.GetPlace();
+                        result.Data = selectedPlace;
+                        result.Status = Status.Success;
+                    }
+                    else
+                        return null;
                 }
                 else
                 {

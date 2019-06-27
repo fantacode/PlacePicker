@@ -11,6 +11,7 @@ namespace PlacePicker.Models
         NoInternet,
         Timeout,
         FeatureNotSupported,
+        PermissionException,
         NSErrorException,
         Unknown
     }
