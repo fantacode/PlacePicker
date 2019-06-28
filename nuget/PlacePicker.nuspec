@@ -1,0 +1,43 @@
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>PlacePicker</id>
+    <version>1.0.0</version>
+    <title>PlacePicker</title>
+	<authors>Khadeeja Alif</authors>
+    <owners>Khadeeja Alif</owners>
+    <projectUrl>https://github.com/khadeeja-alif/PlacePicker</projectUrl>
+	<requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>
+		Easy Place Picker Control
+    </description>
+    <tags>xamarin xamarin.forms controls</tags>
+    <dependencies>
+      <group targetFramework="netstandard2.0">
+        <dependency id="Xamarin.Forms" version="3.4.0.1008975" />
+        <dependency id="Plugin.Permissions" version="3.0.0.12" />
+        <dependency id="Xamarin.Essentials" version="1.1.0" />
+        <dependency id="Xamarin.Forms.GoogleMaps" version="3.2.0" />
+        <dependency id="Xamarin.Forms.GoogleMaps.Bindings" version="2.2.0" />
+      </group>
+      <group targetFramework="MonoAndroid10">
+        <dependency id="Plugin.CurrentActivity" version="2.1.0.2" />
+        <dependency id="Plugin.Permissions" version="3.0.0.12" />
+        <dependency id="Xamarin.Essentials" version="1.1.0" />
+        <dependency id="Xamarin.Forms.GoogleMaps" version="3.2.0" />
+        <dependency id="Xamarin.GooglePlayServices.Base" version="60.1142.1" />
+        <dependency id="Xamarin.GooglePlayServices.Basement" version="60.1142.1" />
+        <dependency id="Xamarin.GooglePlayServices.Maps" version="60.1142.1" />
+        <dependency id="Xamarin.GooglePlayServices.Tasks" version="60.1142.1" />
+      </group>
+      <group targetFramework="xamarinios10">
+        <dependency id="Plugin.Permissions" version="3.0.0.12" />
+        <dependency id="Xamarin.Essentials" version="1.1.0" />
+        <dependency id="Xamarin.Forms.GoogleMaps" version="3.2.0" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+		<!--Core-->
+		<file src="..\PlacePicker\bin\Release\netstandard2.0\PlacePicker.*" target="lib\netstandard2.0" />	
+</files>
+</package>
