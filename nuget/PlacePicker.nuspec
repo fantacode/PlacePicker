@@ -1,7 +1,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>PlacePicker</id>
-    <version>1.0.0</version>
+    <version>1.0.0-pre</version>
     <title>PlacePicker</title>
 	<authors>Khadeeja Alif</authors>
     <owners>Fantacode</owners>
