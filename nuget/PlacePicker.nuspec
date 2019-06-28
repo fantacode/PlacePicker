@@ -4,8 +4,9 @@
     <version>1.0.0</version>
     <title>PlacePicker</title>
 	<authors>Khadeeja Alif</authors>
-    <owners>Khadeeja Alif</owners>
+    <owners>Fantacode</owners>
     <projectUrl>https://github.com/fantacode/PlacePicker</projectUrl>
+    <iconUrl>https://github.com/fantacode/PlacePicker/blob/master/nuget/placepicker.png</iconUrl>
 	<requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>
 		Easy Place Picker Control
