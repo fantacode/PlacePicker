@@ -7,6 +7,7 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using Plugin.Permissions;
+using Plugin.CurrentActivity;
 
 namespace DemoApp.Droid
 {
@@ -17,7 +18,7 @@ namespace DemoApp.Droid
         {
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
-            Plugin.CurrentActivity.CrossCurrentActivity.Current.Init(this, savedInstanceState);
+            CrossCurrentActivity.Current.Activity = this;
             Xamarin.FormsGoogleMaps.Init(this, savedInstanceState);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             base.OnCreate(savedInstanceState);
