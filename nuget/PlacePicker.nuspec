@@ -15,25 +15,25 @@
     <dependencies>
       <group targetFramework="netstandard2.0">
         <dependency id="Xamarin.Forms" version="3.1.0.583944" />
-        <dependency id="Plugin.Permissions" version="3.0.0.12" />
-        <dependency id="Xamarin.Essentials" version="1.1.0" />
-        <dependency id="Xamarin.Forms.GoogleMaps" version="3.2.0" />
-        <dependency id="Xamarin.Forms.GoogleMaps.Bindings" version="2.2.0" />
+        <dependency id="Plugin.Permissions" version="2.2.1" />
+        <dependency id="Xamarin.Essentials" version="1.0.1" />
+        <dependency id="Xamarin.Forms.GoogleMaps" version="2.3.0" />
+        <dependency id="Xamarin.Forms.GoogleMaps.Bindings" version="2.1.0" />
       </group>
       <group targetFramework="MonoAndroid10">
-        <dependency id="Plugin.CurrentActivity" version="2.1.0.2" />
-        <dependency id="Plugin.Permissions" version="3.0.0.12" />
-        <dependency id="Xamarin.Essentials" version="1.1.0" />
-        <dependency id="Xamarin.Forms.GoogleMaps" version="3.2.0" />
-        <dependency id="Xamarin.GooglePlayServices.Base" version="60.1142.1" />
-        <dependency id="Xamarin.GooglePlayServices.Basement" version="60.1142.1" />
-        <dependency id="Xamarin.GooglePlayServices.Maps" version="60.1142.1" />
-        <dependency id="Xamarin.GooglePlayServices.Tasks" version="60.1142.1" />
+        <dependency id="Plugin.CurrentActivity" version="1.0.1" />
+        <dependency id="Plugin.Permissions" version="2.2.1" />
+        <dependency id="Xamarin.Essentials" version="1.0.1" />
+        <dependency id="Xamarin.Forms.GoogleMaps" version="2.3.0" />
+        <dependency id="Xamarin.GooglePlayServices.Base" version="42.1021.1" />
+        <dependency id="Xamarin.GooglePlayServices.Basement" version="42.1021.1" />
+        <dependency id="Xamarin.GooglePlayServices.Maps" version="42.1021.1" />
+        <dependency id="Xamarin.GooglePlayServices.Tasks" version="42.1021.1" />
       </group>
       <group targetFramework="xamarinios10">
-        <dependency id="Plugin.Permissions" version="3.0.0.12" />
-        <dependency id="Xamarin.Essentials" version="1.1.0" />
-        <dependency id="Xamarin.Forms.GoogleMaps" version="3.2.0" />
+        <dependency id="Plugin.Permissions" version="2.2.1" />
+        <dependency id="Xamarin.Essentials" version="1.0.1" />
+        <dependency id="Xamarin.Forms.GoogleMaps" version="2.3.0" />
       </group>
     </dependencies>
   </metadata>
