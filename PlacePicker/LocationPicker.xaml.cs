@@ -8,9 +8,11 @@ using PlacePicker.Models;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.GoogleMaps;
+using Xamarin.Forms.Internals;
 
 namespace PlacePicker
 {
+    [Preserve(AllMembers = true)]
     public partial class LocationPicker : ContentPage, INotifyPropertyChanged
     {
         public static string PinImage { get; set; }
