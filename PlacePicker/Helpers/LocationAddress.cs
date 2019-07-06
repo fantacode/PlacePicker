@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Linq;
 using Xamarin.Essentials;
+using Xamarin.Forms.Internals;
 
 namespace PlacePicker.Helpers
 {
+    [Preserve(AllMembers = true)]
     public class LocationAddress
     {
         public string GetLocationString(Placemark placemark)

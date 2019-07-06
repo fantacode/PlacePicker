@@ -5,9 +5,11 @@ using PlacePicker.Models;
 using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;
 using Xamarin.Essentials;
+using Xamarin.Forms.Internals;
 
 namespace PlacePicker.Helpers
 {
+    [Preserve(AllMembers = true)]
     public class GetUserLocation
     {
         public async Task<BaseModel<Location>> GetPosition()

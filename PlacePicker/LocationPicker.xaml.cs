@@ -41,6 +41,7 @@ namespace PlacePicker
             LocationMap.UiSettings.MyLocationButtonEnabled = true;
             LocationMap.UiSettings.ScrollGesturesEnabled = true;
             pin.Source = PinImage;
+            LocationMap.CameraIdled += Handle_CameraIdled;
         }
 
         public async Task<BaseModel<Location>> GetCurrentLocation()

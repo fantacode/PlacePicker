@@ -1,6 +1,9 @@
 ﻿using System;
+using Xamarin.Forms.Internals;
+
 namespace PlacePicker.Models
 {
+    [Preserve(AllMembers = true)]
     public enum Status
     {
         Success,
