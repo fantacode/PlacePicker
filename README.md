@@ -75,6 +75,13 @@ Or manually edit the file and add the following :
 Xamarin.FormsGoogleMaps.Init("YOUR-API-KEY-HERE");
 ```
 
+## Additional Setup
+
+Please do make sure to exclude/ignore **PlacePicker** assembly from iOS & Android Linker.
+
+- iOS -> `--linkskip=PlacePicker`
+- Android -> `PlacePicker;`
+
 ## Usage
 
 - You can set the map pin icon as follows :
