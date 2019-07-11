@@ -8,12 +8,12 @@ namespace PlacePicker.Helpers
     [Preserve(AllMembers = true)]
     public class LocationAddress
     {
-        public string GetLocationString(Placemark placemark)
+        public static string GetLocationString(Placemark placemark)
         {
             string address;
             if (placemark != null)
             {
-                var array = new[] { placemark.FeatureName, placemark.SubLocality, placemark.Locality, placemark.AdminArea, placemark.PostalCode, placemark.CountryName };
+                var array = new[] { placemark.FeatureName, placemark.Locality, placemark.AdminArea, placemark.PostalCode, placemark.CountryName };
                 if (!placemark.FeatureName.Any(char.IsDigit))
                 {
                     if (CheckSimilar(array, 0))
@@ -37,12 +37,13 @@ namespace PlacePicker.Helpers
                         address = string.Join(", ", array.Where(s => !string.IsNullOrWhiteSpace(s)));
                     }
                 }
+                
                 return address;
             }
             return string.Empty;
         }
 
-        private bool CheckSimilar(string[] array, int start)
+        private static bool CheckSimilar(string[] array, int start)
         {
             string item = array[start];
             bool allEqual = array.Skip(start + 1)

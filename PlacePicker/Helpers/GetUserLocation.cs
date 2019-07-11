@@ -10,11 +10,11 @@ using Xamarin.Forms.Internals;
 namespace PlacePicker.Helpers
 {
     [Preserve(AllMembers = true)]
-    public class GetUserLocation
+    public static class GetUserLocation
     {
-        public async Task<BaseModel<Location>> GetPosition()
+        public static async Task<Status> CheckPermissions()
         {
-            var result = new BaseModel<Location>();
+            var result = new Status();
             if (Connectivity.NetworkAccess == NetworkAccess.Internet)
             {
                 try
@@ -24,8 +24,7 @@ namespace PlacePicker.Helpers
                     {
                         if(await CrossPermissions.Current.ShouldShowRequestPermissionRationaleAsync(Permission.Location))
                         {
-                            result.Data = null;
-                            result.Status = Status.Failed;
+                            result = Status.Failed;
                         }
                         var results = await CrossPermissions.Current.RequestPermissionsAsync(Permission.Location);
                         if (results.ContainsKey(Permission.Location))
@@ -33,39 +32,34 @@ namespace PlacePicker.Helpers
                     }
                     if (status == PermissionStatus.Granted)
                     {
-                        result = await GetLocation();
+                        result = Status.Success;
                     }
                     else if (status == PermissionStatus.Denied)
                     {
-                        result.Data = null;
-                        result.Status = Status.Denied;
+                        result = Status.Denied;
                     }
                     else if (status == PermissionStatus.Disabled)
                     {
-                        result.Data = null;
-                        result.Status = Status.Disabled;
+                        result = Status.Disabled;
                     }
                     else
                     {
-                        result.Data = null;
-                        result.Status = Status.Unknown;
+                        result = Status.Unknown;
                     }
                 }
                 catch(Exception)
                 {
-                    result.Data = null;
-                    result.Status = Status.Failed;
+                    result = Status.Failed;
                 }
             }
             else
             {
-                result.Data = null;
-                result.Status = Status.NoInternet;
+                result = Status.NoInternet;
             }
             return result;
         }
 
-        async Task<BaseModel<Location>> GetLocation()
+        async static Task<BaseModel<Location>> GetLocation()
         {
             var result = new BaseModel<Location>();
             var request = new GeolocationRequest(GeolocationAccuracy.Medium);
@@ -114,7 +108,7 @@ namespace PlacePicker.Helpers
             return result;
         }
 
-        public async Task<BaseModel<Placemark>> GetAddress(Location location)
+        public static async Task<BaseModel<Placemark>> GetAddress(Location location)
         {
             var result = new BaseModel<Placemark>();
             if (Connectivity.NetworkAccess == NetworkAccess.Internet)
@@ -156,7 +150,7 @@ namespace PlacePicker.Helpers
             return result;
         }
 
-        public void Dispose()
+        public static void Dispose()
         {
             Geolocation.GetLocationAsync().Dispose();
         }

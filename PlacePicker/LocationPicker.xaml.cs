@@ -9,28 +9,20 @@ using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.GoogleMaps;
 using Xamarin.Forms.Internals;
+using Xamarin.Forms.Xaml;
 
 namespace PlacePicker
 {
+    [XamlCompilation(XamlCompilationOptions.Compile)]
     [Preserve(AllMembers = true)]
     public partial class LocationPicker : ContentPage, INotifyPropertyChanged
     {
         public static string PinImage { get; set; }
 
-        public GetUserLocation locator = new GetUserLocation();
-        public LocationAddress address = new LocationAddress();
-
         private TaskCompletionSource<Place> _taskCompletionSource;
 
-        private static Place place;
-        public static Place Place
-        {
-            get { return place; }
-            set
-            {
-                place = value;
-            }
-        }
+        public static Place Place;
+       
 
         public LocationPicker()
         {
@@ -41,26 +33,53 @@ namespace PlacePicker
             LocationMap.UiSettings.MyLocationButtonEnabled = true;
             LocationMap.UiSettings.ScrollGesturesEnabled = true;
             pin.Source = PinImage;
-            LocationMap.CameraIdled += Handle_CameraIdled;
+            UpdateCamera().ConfigureAwait(false);
+            LocationMap.CameraIdled += LocationMap_CameraIdled;
         }
 
-        public async Task<BaseModel<Location>> GetCurrentLocation()
+        async private void LocationMap_CameraIdled(object sender, CameraIdledEventArgs e)
         {
-            var result = await locator.GetPosition();
-            if (result?.Data != null)
+            var pos = e.Position.Target;
+            var loc = new Location(pos.Latitude, pos.Longitude);
+            var x = await GetUserLocation.GetAddress(loc);
+            if (x?.Data != null)
             {
-                var loc = result.Data;
-                var position = new Position(loc.Latitude, loc.Longitude);
-                UpdateLocationOnMap(position.Latitude, position.Longitude, true);
+                Place.Location = loc;
+                Place.Placemark = x.Data;
+                Place.LocationAddress = LocationAddress.GetLocationString(x.Data);
+                CurrentLocationText.Text = LocationAddress.GetLocationString(x.Data);
             }
-            return result;
+            else
+            {
+                Place.Location = loc;
+                Place.Placemark = null;
+                Place.LocationAddress = "Unnamed";
+                CurrentLocationText.Text = "Unnamed";
+            }
+        }
+
+        async private Task UpdateCamera()
+        {
+            var lastLocation = await Geolocation.GetLastKnownLocationAsync();
+            if (lastLocation != null)
+            {
+                var lastPosition = new Position(lastLocation.Latitude, lastLocation.Longitude);
+                LocationMap.InitialCameraUpdate = CameraUpdateFactory.NewPositionZoom(lastPosition,15);
+            }
+            else
+            { 
+                var request = new GeolocationRequest(GeolocationAccuracy.Low);
+                var currentLocation = await Geolocation.GetLocationAsync(request);
+                var currentPosition = new Position(currentLocation.Latitude, currentLocation.Longitude);
+                LocationMap.MoveToRegion(MapSpan.FromCenterAndRadius(currentPosition, Distance.FromMiles(0.1)));
+            }
         }
 
         public async void Handle_ConfirmClicked(object sender, EventArgs e)
         {
             if (_taskCompletionSource != null)
             {
-                _taskCompletionSource.SetResult(place);
+                _taskCompletionSource.SetResult(Place);
                 _taskCompletionSource = null;
                 await Navigation.PopModalAsync();
             }
@@ -76,40 +95,7 @@ namespace PlacePicker
             }
         }
 
-        public void Handle_CameraIdled(object sender, CameraIdledEventArgs e)
-        {
-            var position = new Position(e.Position.Target.Latitude, e.Position.Target.Longitude);
-            UpdateLocationOnMap(position.Latitude, position.Longitude, false);
-        }
-
-        public async void UpdateLocationOnMap(double? mapLatitude, double? mapLongitude, bool DefaultPosition = false)
-        {
-            var position = new Position(mapLatitude.Value, mapLongitude.Value);
-            var loc = new Location(mapLatitude.Value, mapLongitude.Value);
-            var x = await locator.GetAddress(loc);
-            if (x?.Data != null)
-            {
-                Place.Location = loc;
-                Place.Placemark = x.Data;
-                Place.LocationAddress = address.GetLocationString(x.Data);
-                location.Text = address.GetLocationString(x.Data);
-            }
-            else
-            {
-                Place.Location = loc;
-                Place.Placemark = null;
-                Place.LocationAddress = "Unnamed";
-                location.Text = "Unnamed";
-            }
-
-            if (DefaultPosition)
-            {
-                LocationMap.MoveToRegion(MapSpan.FromCenterAndRadius(position, Distance.FromMiles(0.1)));
-                await LocationMap.AnimateCamera(CameraUpdateFactory.NewCameraPosition(
-                new CameraPosition(position, 15d)), TimeSpan.FromSeconds(0.5));
-            }
-        }
-
+        
         private Task<Place> GetPlace()
         {
             _taskCompletionSource = new TaskCompletionSource<Place>();
@@ -123,8 +109,8 @@ namespace PlacePicker
             {
                 var result = new BaseModel<Place>();
                 var placePicker = new LocationPicker();
-                var loc = await placePicker.GetCurrentLocation();
-                if (loc.Data != null)
+                var Status = await GetUserLocation.CheckPermissions();
+                if (Status == Status.Success)
                 {
                     if (currentNav.ModalStack.Where(x => x is LocationPicker).Count() == 0)
                     {
@@ -138,7 +124,7 @@ namespace PlacePicker
                 }
                 else
                 {
-                    result.Status = loc.Status;
+                    result.Status = Status;
                 }
                 return result;
             }

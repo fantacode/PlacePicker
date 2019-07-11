@@ -45,8 +45,8 @@
                     <BoxView HeightRequest="1" BackgroundColor="#C6C6C6"/>
                     <StackLayout Margin="20,10" Spacing="0">   
                         <Label Text="Location" TextColor="#989898" FontSize="12"/>
-                        <Label x:Name="location" TextColor="#323232" FontSize="14"
-                               Text="{Binding Location}" FontAttributes="Bold" Margin="0,5"/>
+                        <Label x:Name="CurrentLocationText" TextColor="#323232" FontSize="14"
+                               FontAttributes="Bold" Margin="0,5"/>
                         <BoxView HeightRequest="1" BackgroundColor="#D4D4D4"/>
                         <Button BackgroundColor="#1AA260" Clicked="Handle_ConfirmClicked"
                                 Text="Confirm Location"
