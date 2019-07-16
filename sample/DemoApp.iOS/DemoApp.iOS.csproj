@@ -164,9 +164,6 @@
     <PackageReference Include="Xamarin.Essentials">
       <Version>1.0.1</Version>
     </PackageReference>
-    <PackageReference Include="Plugin.Permissions">
-      <Version>3.0.0.12</Version>
-    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DemoApp\DemoApp.csproj">
